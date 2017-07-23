@@ -3,7 +3,7 @@
  * redis 简单字符串缓存
  */
 
-$redis = new \Redis();
+$redis = new Redis();
 $redis->connect('127.0.0.1', 6379);
 
 //缓存数据
