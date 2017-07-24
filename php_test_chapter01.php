@@ -1,8 +1,8 @@
 <?php
 require 'php_redis_tool.php';
+use Chapter01
 
-require 'php_chapter01.php'
-
+$redis = "";
 $redis = redisConnect();
 
 $chapter = new Chapter01();
