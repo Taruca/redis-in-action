@@ -1,6 +1,5 @@
 <?php
 require 'php_redis_tool.php';
-use Chapter01
 
 $redis = "";
 $redis = redisConnect();
