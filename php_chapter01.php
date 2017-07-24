@@ -1,8 +1,8 @@
 <?php
 class Chapter01 {
-    define(ONE_WEEK_IN_SECONDS, 7 * 86400);
-    define(VOTE_SCORE, 432);
-    define(ARTICLES_PER_PAGE, 25);
+    const ONE_WEEK_IN_SECONDS =  604800;
+    const VOTE_SCORE = 432;
+    const ARTICLES_PER_PAGE = 25;
 
     public function voteArticle($redis, $user, $article)
     {

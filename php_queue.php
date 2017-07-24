@@ -9,11 +9,11 @@ $redis->connect('127.0.0.1');
 
 //入队
 $userId = mt_rand(000000, 999999);
-$redis->rpush('QUEUE_NAME', json_encode['user_id' => $user_id]);
+$redis->rpush('QUEUE_NAME', json_encode(['user_id' => $userId]));
 $userId = mt_rand(000000, 999999);
-$redis->rpush('QUEUE_NAME', json_encode['user_id' => $user_id]);
+$redis->rpush('QUEUE_NAME', json_encode(['user_id' => $userId]));
 $userId = mt_rand(000000, 999999);
-$redis->rpush('QUEUE_NAME', json_encode['user_id' => $user_id]);
+$redis->rpush('QUEUE_NAME', json_encode(['user_id' => $userId]));
 echo "入队成功 \n";
 
 //查看队列
