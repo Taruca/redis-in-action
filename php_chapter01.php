@@ -1,10 +1,10 @@
 <?php
-public class Chapter01 {
+class Chapter01 {
     define(ONE_WEEK_IN_SECONDS, 7 * 86400);
     define(VOTE_SCORE, 432);
     define(ARTICLES_PER_PAGE, 25);
 
-    public function articleVote($redis, $user, $article)
+    public function voteArticle($redis, $user, $article)
     {
         $cut_off = time() - ONE_WEEK_IN_SECONDS;
         if ($redis->zScore('time:', $article) < $cut_off) {
@@ -16,5 +16,27 @@ public class Chapter01 {
             $redis->zIncrBy('score:', VOTE_SCORE, $article);
             $redis->hIncryBy($article, 'votes', 1);
         }
+    }
+
+    public function postArticle($redis, $user, $title, $link)
+    {
+        $articleId = $redis->incr('article:');
+
+        $voted = 'voted:' + $articleId;
+        $redis->sAdd($voted, $user);
+        $redis->setTimeout($voted, ONE_WEEK_IN_SECONDS);
+
+        $now = time();
+        $atricle = 'article:' . $articleId;
+        $redis->hMSet($atricle, array([
+            'title' => $title,
+            'link' => $link,
+            'poster' => $user,
+            'time' => $now,
+            'votes' => 1
+            ]));
+        $redis->zAdd('score:', $now + VOTE_SCORE, $article);
+        $redis->zAdd('time:', $now, $article);
+        return $articleId;
     }
 }
